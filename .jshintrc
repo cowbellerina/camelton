@@ -1,0 +1,9 @@
+{
+  "node": true,
+  "asi": false,
+  "camelcase": true,
+  "curly": true,
+  "eqeqeq": true,
+  "indent": 2,
+  "quotmark": "single"
+}
