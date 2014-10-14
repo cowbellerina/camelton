@@ -12,7 +12,7 @@ and synchronizing localization files or test data, for example.
 
 At the moment `camelton` can only be used from the command line and it only
 supports JSON formatted data. Please see
-[roadmap](https://github.com/tuunanen/camelton/README.md#roadmap) for feature plan.
+[roadmap](https://github.com/tuunanen/camelton#roadmap) for feature plan.
 
 ## Installation
 
@@ -27,13 +27,13 @@ git clone git@github.com:tuunanen/camelton.git
 ### CLI
 
 ```
-node camelton [options]
+camelton [options]
 ```
 
 #### Example
 
 ```
-node camelton --src=en_US.json --dest=fi_FI.json,fi_SV.json
+camelton --src=en_US.json --dest=fi_FI.json,fi_SV.json
 ```
 
 #### `--help`, `-h`
@@ -57,7 +57,7 @@ Path to source file.
 #### Example
 
 ```
-node camelton --src=en_US.json
+camelton --src=en_US.json
 ```
 
 ### `--dest`
@@ -72,7 +72,7 @@ should be generated or synchronized.
 #### Example
 
 ```
-node camelton --dest=fi_FI.json,fi_SV.json
+camelton --dest=fi_FI.json,fi_SV.json
 ```
 
 ## Roadmap
@@ -95,10 +95,10 @@ node camelton --dest=fi_FI.json,fi_SV.json
 
 ## Changelog
 
-Please see [changelog](https://github.com/tuunanen/camelton/CHANGELOG.md).
+Please see [changelog](https://github.com/tuunanen/camelton/blob/master/CHANGELOG.md).
 
 ## License
 
 Copyright &copy; tuunanen
 
-Licensed under the [MIT license](https://github.com/tuunanen/camelton/LICENSE).
+Licensed under the [MIT license](https://github.com/tuunanen/camelton/blob/master/LICENSE).
