@@ -27,61 +27,32 @@ git clone git@github.com:tuunanen/camelton.git
 ### CLI
 
 ```
-camelton [options]
+camelton <input> <output> [options]
 ```
 
 #### Example
 
 ```
-camelton --src=en_US.json --dest=fi_FI.json,fi_SV.json
+camelton input.json output-1.json output-2.json
 ```
 
-#### `--help`, `-h`
+### Options
+
+##### `--help`, `-h`
 
 Outputs help and usage information.
 
-#### `--version`, `-v`
+##### `--version`, `-v`
 
 Outputs version, license and copyright information.
 
-## Options
-
-### `--src`
-
-Type: `String`
-
-Default: `null`
-
-Path to source file.
-
-#### Example
-
-```
-camelton --src=en_US.json
-```
-
-### `--dest`
-
-Type: `String`
-
-Default: `null`
-
-Comma-separated list of paths to destination files where data from source file
-should be generated or synchronized.
-
-#### Example
-
-```
-camelton --dest=fi_FI.json,fi_SV.json
-```
-
 ## Roadmap
 
-### Version 0.1.0 _(21st Oct 2014)_
-* Basic command line interface
-* JSHint, JSCS, and JSDoc linting
-
 ### Version 0.2.0 _(28th Oct 2014)_
+* Object schema merge
+* Options
+  * --sort: Basic sorting options for keys
+  * --preserve-extra: Preserve extra keys in destination files
 * Unit tests using nodeunit
 * Grunt tasks for linting and running tests
 * Wercker integration

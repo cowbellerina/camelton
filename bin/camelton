@@ -1,19 +1,9 @@
 #!/usr/bin/env node
-var cli = require('../lib/cli.js'),
-    main = require('../index.js'),
-    pkg = require('../package.json'),
-    program = require('commander');
-
-/**
- * Splits a comma-separated string into array.
- *
- * @public
- * @param {String} value
- * @return {Array} A list of values
- */
-function list(value) {
-  return value.split(',');
-}
+var pkg = require('../package.json'),
+    program = require('commander'),
+    util = require('../lib/util.js'),
+    cli = require('../lib/cli.js'),
+    main = require('../index.js');
 
 /**
  * Outputs version, license and copyright information.
@@ -31,17 +21,14 @@ function version() {
  */
 program
   .version(version())
-  .usage('--src=<path> --dest=<paths> [options]')
-
-  .option('--src <path>', 'Path to source file.')
-  .option('--dest <paths>', 'Comma-separated list of paths to destination files.', list);
+  .usage('<input> <output> [options] ');
 
 /**
  * Custom help.
  */
 program.on('--help', function() {
-  var output = '  Example:\n    $ %s --src=en_US.json --dest=fi_FI.json,fi_SV.json';
-  console.log(output, pkg.name);
+  var message = '  Example:\n    $ %s input.json output-1.json output-2.json';
+  util.log(message, pkg.name);
 });
 
 program.parse(process.argv);
