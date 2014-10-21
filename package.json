@@ -43,7 +43,8 @@
     "grunt-cli": "^0.1.13",
     "grunt-jscs": "^0.8.0",
     "grunt-contrib-jshint": "^0.10.0",
-    "grunt-contrib-watch": "^0.6.1"
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-jsdoc": "^0.6.1"
   },
   "dependencies": {
     "commander": "^2.3.0",

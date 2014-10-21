@@ -1,6 +1,10 @@
 #!/usr/bin/env node
 'use strict';
 
+/**
+ * @module bin/camelton
+ */
+
 var pkg = require('../package.json'),
     program = require('commander'),
     util = require('../lib/util.js'),
@@ -10,7 +14,7 @@ var pkg = require('../package.json'),
 /**
  * Outputs version, license and copyright information.
  *
- * @public
+ * @returns {string}
  */
 function version() {
   return pkg.version +

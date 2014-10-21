@@ -14,6 +14,19 @@ module.exports = function gruntConfiguration(grunt) {
       ];
 
   grunt.initConfig({
+    jsdoc: {
+      dist: {
+        src: [
+          'index.js',
+          'lib/*.js',
+          'bin/*'
+        ],
+        options: {
+          destination: 'docs'
+        }
+      }
+    },
+
     jscs: {
       options: {
         config: '.jscsrc'
@@ -39,9 +52,11 @@ module.exports = function gruntConfiguration(grunt) {
 
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-jsdoc');
   grunt.loadNpmTasks('grunt-jscs');
 
   grunt.registerTask('dev', ['watch']);
+  grunt.registerTask('docs', ['jsdoc']);
   grunt.registerTask('lint', ['jshint', 'jscs']);
   grunt.registerTask('default', ['dev']);
 };
