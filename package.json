@@ -4,7 +4,7 @@
   "description": "Generate and synchronize data skeletons across files.",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/grunt lint"
+    "test": "./node_modules/.bin/grunt test"
   },
   "bin": {
     "camelton": "./bin/camelton"
@@ -44,7 +44,10 @@
     "grunt-jscs": "^0.8.0",
     "grunt-contrib-jshint": "^0.10.0",
     "grunt-contrib-watch": "^0.6.1",
-    "grunt-jsdoc": "^0.6.1"
+    "grunt-jsdoc": "^0.6.1",
+    "nodeunit": "^0.9.0",
+    "grunt-contrib-nodeunit": "^0.4.1",
+    "grunt-contrib-clean": "^0.6.0"
   },
   "dependencies": {
     "commander": "^2.3.0",

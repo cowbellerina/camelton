@@ -56,8 +56,8 @@ function camelton(source, opts) {
 
       // Destination schema is not empty and does not equal with source schema
       // -> merge schemas.
-      if (!obs.isEqualObjectSchema(sourceObject, destinationObject)) {
-        destinationObject = obs.mergeObjectSchema(sourceObject, destinationObject);
+      if (!obs.isEqualObjectSchema(destinationObject, sourceObject)) {
+        destinationObject = obs.mergeObjectSchema(destinationObject, sourceObject);
         util.log('File %s updated.', filePath);
       }
 
