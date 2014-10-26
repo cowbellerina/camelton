@@ -20,6 +20,8 @@ Using git
 
 ```
 git clone git@github.com:tuunanen/camelton.git
+cd camelton
+npm install
 ```
 
 ## Usage
@@ -45,6 +47,20 @@ Outputs help and usage information.
 ##### `--version`, `-v`
 
 Outputs version, license and copyright information.
+
+## Test
+
+Running Nodeunit unit test
+
+```
+npm test
+```
+
+Running JSHint and JSCS linters
+
+```
+grunt lint
+```
 
 ## Roadmap
 
