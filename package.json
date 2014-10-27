@@ -9,6 +9,11 @@
   "bin": {
     "camelton": "./bin/camelton"
   },
+  "directories": {
+    "bin": "./bin",
+    "lib": "./lib",
+    "test": "./tests"
+  },
   "files": [
     "bin",
     "CHANGELOG.md",

@@ -72,6 +72,6 @@ module.exports = function gruntConfiguration(grunt) {
   grunt.registerTask('dev', ['watch']);
   grunt.registerTask('docs', ['jsdoc']);
   grunt.registerTask('lint', ['jshint', 'jscs']);
-  grunt.registerTask('test', ['nodeunit', 'clean']);
+  grunt.registerTask('test', ['lint', 'nodeunit', 'clean']);
   grunt.registerTask('default', ['dev']);
 };

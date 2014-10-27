@@ -82,6 +82,7 @@ exports.obs = {
         baz: ''
       };
       this.objectSingle2 = {
+        foo: 'baz',
         baz: 'foo',
         bar: 'baz'
       };
@@ -115,17 +116,17 @@ exports.obs = {
 
       test.expect(5);
 
-      test.equal(mergedSchemaSingle.foo, 'bar',
-        'String property value is not overridden.');
-
-      test.equal(mergedSchemaSingle.bar, '',
-        'Property value is not merged.');
-
       test.equal(mergedSchemaSingle.baz, '',
-        'Empty property value is left intact.');
+        'Property value is not overridden (empty string)');
+
+      test.equal(mergedSchemaSingle.foo, 'bar',
+        'Property value is not overridden (string)');
 
       test.deepEqual(mergedSchemaMulti.foo, {},
-        'Object property value is not overridden.');
+        'Property value is not overridden (object)');
+
+      test.equal(mergedSchemaSingle.bar, '',
+        'Property value is not copied.');
 
       test.deepEqual(mergedSchemaMulti.bar, {baz: '', bar: '', foo: {bar: ''}},
         'Multi-dimensional object keys are copied.');
