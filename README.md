@@ -1,6 +1,8 @@
 camelton
 ========
 
+[![wercker status](https://app.wercker.com/status/e8efc33471deb952a82c2d272ffb769d/s "wercker status")](https://app.wercker.com/project/bykey/e8efc33471deb952a82c2d272ffb769d)
+
 > Generate and synchronize data skeletons across files.
 
 ## Introduction
@@ -18,24 +20,24 @@ supports JSON formatted data. Please see
 
 Using git
 
-```
-git clone git@github.com:tuunanen/camelton.git
-cd camelton
-npm install
+```sh
+$ git clone git@github.com:tuunanen/camelton.git
+$ cd camelton
+$ npm install
 ```
 
 ## Usage
 
 ### CLI
 
-```
-camelton <input> <output> [options]
+```sh
+$ camelton <input> <output> [options]
 ```
 
 #### Example
 
-```
-camelton input.json output-1.json output-2.json
+```sh
+$ camelton input.json output-1.json output-2.json
 ```
 
 ### Options
@@ -52,14 +54,14 @@ Outputs version, license and copyright information.
 
 Running Nodeunit unit test
 
-```
-npm test
+```sh
+$ npm test
 ```
 
 Running JSHint and JSCS linters
 
-```
-grunt lint
+```sh
+$ grunt lint
 ```
 
 ## Roadmap
