@@ -27,7 +27,9 @@ function version() {
  */
 program
   .version(version())
-  .usage('<input> <output> [options] ');
+  .usage('<source> <destination> [options]')
+
+  .option('-s, --sort [type]', 'asc or desc [sortOrder]', 'sortOrder');
 
 /**
  * Custom help.

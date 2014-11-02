@@ -12,8 +12,9 @@ structure between source and destination files. The schema can be generated and
 synchronized across multiple files. Use cases for `camelton` include generating
 and synchronizing localization files or test data, for example.
 
-At the moment `camelton` can only be used from the command line and it only
-supports JSON formatted data. Please see
+At the moment `camelton` only supports JSON formatted data.
+
+Please see
 [roadmap](https://github.com/tuunanen/camelton#roadmap) for feature plan.
 
 ## Installation
@@ -31,16 +32,40 @@ $ npm install
 ### CLI
 
 ```sh
-$ camelton <input> <output> [options]
+$ camelton <source> <destination> [options]
 ```
 
 #### Example
 
 ```sh
-$ camelton input.json output-1.json output-2.json
+$ camelton source.json destination-1.json destination-2.json --sort=desc
+```
+
+### Node
+
+```js
+var camelton = new Camelton(source, destination, options);
+camelton.run();
+```
+
+#### Example
+
+```js
+var Camelton = require('camelton');
+
+var camelton = new Camelton('source.json', ['destination-1.json', 'destination-2.json'], {sort: 'desc'});
+camelton.run();
 ```
 
 ### Options
+
+##### `--sort`, `-s`
+
+Type: `String`
+Default: null
+Values: `"asc"`, `"desc"`
+
+Sort order for destination objects.
 
 ##### `--help`, `-h`
 
@@ -52,7 +77,7 @@ Outputs version, license and copyright information.
 
 ## Test
 
-Running Nodeunit unit test
+Running linters and Nodeunit unit test
 
 ```sh
 $ npm test
@@ -66,19 +91,24 @@ $ grunt lint
 
 ## Roadmap
 
-### Version 0.2.0 _(28th Oct 2014)_
+### Version 0.2.0
 * Object schema merge
 * Options
   * --sort: Basic sorting options for keys
-  * --preserve-extra: Preserve extra keys in destination files
 * Unit tests using nodeunit
 * Grunt tasks for linting and running tests
 * Wercker integration
 * Badge showing the current build status
 
-### Version 0.3.0 _(18th Nov 2014)_
+### Version 0.3.0
+* Reporter for CLI
+* Options
+  * --sort: Additional [sort-object](https://www.npmjs.org/package/sort-object) options.
+* Code coverage testing
+  * [Coveralls](https://coveralls.io/)
+* More unit tests (90% coverage target)
 
-### Version 1.0 _(9th Dec 2014)_
+### Version 1.0
 * Project published to npm
 * Grunt wrapper (separate repository)
 
