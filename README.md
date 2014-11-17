@@ -61,8 +61,8 @@ camelton.run();
 
 ##### `--sort`, `-s`
 
-Type: `String`
-Default: null
+Type: `string`  
+Default: `null`  
 Values: `"asc"`, `"desc"`
 
 Sort order for destination objects.
@@ -90,15 +90,6 @@ $ grunt lint
 ```
 
 ## Roadmap
-
-### Version 0.2.0
-* Object schema merge
-* Options
-  * --sort: Basic sorting options for keys
-* Unit tests using nodeunit
-* Grunt tasks for linting and running tests
-* Wercker integration
-* Badge showing the current build status
 
 ### Version 0.3.0
 * Reporter for CLI

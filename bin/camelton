@@ -35,7 +35,7 @@ program
  * Custom help.
  */
 program.on('--help', function() {
-  var message = '  Example:\n    $ %s input.json output-1.json output-2.json';
+  var message = '  Example:\n    $ %s source.json destination-1.json destination-2.json';
   util.log(message, pkg.name);
 });
 
