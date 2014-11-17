@@ -1,7 +1,7 @@
 Changelog
 =========
 
-### Version 0.2.0 _(17th Nov 2014)_
+## 0.2.0 _(17th Nov 2014)_
 * Object schema merge
 * Options
   * --sort: Basic sorting options for keys
