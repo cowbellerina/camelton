@@ -6,21 +6,23 @@ exports.obs = {
   getObjectSchema: {
     setUp: function(callback) {
       this.objectSingle = {
-        foo: 'bar',
-        bar: 'baz'
+        a: 'a',
+        b: 'b'
       };
       this.objectMulti = {
-        foo: {
-          bar: 'baz'
+        a: {
+          aa: 'aa'
         },
-        bar: 'baz'
+        b: 'b'
       };
       this.objectArrayValue = {
-        foo: ['bar', {baz: 'foo'}],
-        bar: {
-          baz: ['foo', 'bar']
+        a: ['aa', {aaa: 'aaa'}],
+        b: {
+          ba: ['baa', 'bab']
         }
       };
+      this.objectFunction = function() { return 'Hello, World!'; };
+
       callback();
     },
 
@@ -33,10 +35,10 @@ exports.obs = {
       test.deepEqual(obs.getObjectSchema({}), {},
         'Empty object is accepted as function argument.');
 
-      test.deepEqual(obs.getObjectSchema(['foo', 'bar']), {},
+      test.deepEqual(obs.getObjectSchema([]), {},
         'Array is not accepted as function argument.');
 
-      test.deepEqual(obs.getObjectSchema(function() {}), {},
+      test.deepEqual(obs.getObjectSchema(this.objectFunction), {},
         'Function is not accepted as function argument.');
 
       test.done();
@@ -44,19 +46,19 @@ exports.obs = {
 
     testComparison: function(test) {
       var schemaObjectSingle = {
-            foo: '',
-            bar: ''
+            a: '',
+            b: ''
           },
-          schemaObjectMulti1 = {
-            foo: {
-              bar: ''
+          schemaObjectMulti = {
+            a: {
+              aa: ''
             },
-            bar: ''
+            b: ''
           },
           schemaObjectArrayValue = {
-            foo: '',
-            bar: {
-              baz: ''
+            a: '',
+            b: {
+              ba: ''
             }
           };
 
@@ -65,7 +67,7 @@ exports.obs = {
       test.deepEqual(obs.getObjectSchema(this.objectSingle), schemaObjectSingle,
         'Single-dimensional object schema is correctly returned.');
 
-      test.deepEqual(obs.getObjectSchema(this.objectMulti), schemaObjectMulti1,
+      test.deepEqual(obs.getObjectSchema(this.objectMulti), schemaObjectMulti,
         'Multi-dimensional object schema is correctly returned.');
 
       test.deepEqual(obs.getObjectSchema(this.objectArrayValue), schemaObjectArrayValue,
@@ -78,58 +80,129 @@ exports.obs = {
   mergeObjectSchema: {
     setUp: function(callback) {
       this.objectSingle1 = {
-        foo: 'bar',
-        baz: ''
+        a: 'a',
+        b: ''
       };
       this.objectSingle2 = {
-        foo: 'baz',
-        baz: 'foo',
-        bar: 'baz'
+        a: '`a',
+        b: 'b',
+        c: 'c'
       };
       this.objectSingle3 = {
-        qux: 'quux'
+        d: 'd'
       };
 
       this.objectMulti1 = {
-        foo: {},
-        baz: ''
+        a: {},
+        c: ''
       };
       this.objectMulti2 = {
-        foo: '',
-        bar: {
-          baz: 'foo',
-          bar: ['baz', {foo: 'bar'}],
-          foo: {
-            bar: 'baz'
+        a: '',
+        b: {
+          ba: 'ba',
+          bb: ['bba', {bbaa: 'bbaa'}],
+          bc: {
+            bca: 'bca'
           }
         },
-        baz: {
-          foo: 'bar'
+        c: {
+          ca: 'ca'
+        }
+      };
+      this.objectArray = ['a', 'b', 'c'];
+      this.objectFunction = function() { return 'Hello, World!'; };
+
+      callback();
+    },
+    testMergeObjectSchema: function(test) {
+      var mergedSchemaSingle = obs.mergeObjectSchema(this.objectSingle1, this.objectSingle2),
+          mergedSchemaMulti = obs.mergeObjectSchema(this.objectMulti1, this.objectMulti2);
+
+      test.expect(7);
+
+      test.deepEqual(obs.mergeObjectSchema(this.objectArray), this.objectArray,
+        'Non-objects are not processed (Array).');
+
+      test.deepEqual(obs.mergeObjectSchema(this.objectFunction), this.objectFunction,
+        'Non-objects are not processed (function).');
+
+      test.equal(mergedSchemaSingle.b, '',
+        'Property value is not overridden (empty string)');
+
+      test.equal(mergedSchemaSingle.a, 'a',
+        'Property value is not overridden (string)');
+
+      test.deepEqual(mergedSchemaMulti.a, {},
+        'Property value is not overridden (object)');
+
+      test.equal(mergedSchemaSingle.c, '',
+        'Property value is not copied.');
+
+      test.deepEqual(mergedSchemaMulti.b, {ba: '', bb: '', bc: {bca: ''}},
+        'Multi-dimensional object keys are copied.');
+
+      test.done();
+    }
+  },
+
+  sortObjectSchema: {
+    setUp: function(callback) {
+      this.objectSingle = {
+        c: 'c',
+        a: 'a',
+        b: 'b'
+      };
+      this.objectMulti = {
+        c: 'c',
+        b: 'b',
+        a: {
+          ac: 'ac',
+          aa: 'aa',
+          ab: 'ab'
         }
       };
 
       callback();
     },
-    testmergeObjectSchema: function(test) {
-      var mergedSchemaSingle = obs.mergeObjectSchema(this.objectSingle1, this.objectSingle2),
-          mergedSchemaMulti = obs.mergeObjectSchema(this.objectMulti1, this.objectMulti2);
+    testSortObjectSchema: function(test) {
+      // Objects are first sorted using sortObj, then converted into arrays
+      // using Object.keys. The order of the keys is then checked index by
+      // index. Didn't figure any better way to compare object property order.
+      var sortedObject, sortedObjectKeys;
 
-      test.expect(5);
+      test.expect(12);
 
-      test.equal(mergedSchemaSingle.baz, '',
-        'Property value is not overridden (empty string)');
+      // Ascending sort (single).
+      sortedObject = obs.sortObjectSchema(this.objectSingle, {sortOrder: 'asc'});
+      sortedObjectKeys = Object.keys(sortedObject);
 
-      test.equal(mergedSchemaSingle.foo, 'bar',
-        'Property value is not overridden (string)');
+      test.equal(sortedObjectKeys[0], 'c', 'Ascending sort (single): C');
+      test.equal(sortedObjectKeys[1], 'b', 'Ascending sort (single): B');
+      test.equal(sortedObjectKeys[2], 'a', 'Ascending sort (single): A');
 
-      test.deepEqual(mergedSchemaMulti.foo, {},
-        'Property value is not overridden (object)');
+      // Ascending sort (multi).
+      sortedObject = obs.sortObjectSchema(this.objectMulti, {sortOrder: 'asc'});
+      sortedObjectKeys = Object.keys(sortedObject.a);
 
-      test.equal(mergedSchemaSingle.bar, '',
-        'Property value is not copied.');
+      test.equal(sortedObjectKeys[0], 'ac', 'Ascending sort (multi): C');
+      test.equal(sortedObjectKeys[1], 'ab', 'Ascending sort (multi): B');
+      test.equal(sortedObjectKeys[2], 'aa', 'Ascending sort (multi): A');
 
-      test.deepEqual(mergedSchemaMulti.bar, {baz: '', bar: '', foo: {bar: ''}},
-        'Multi-dimensional object keys are copied.');
+      // Descending sort (single).
+      sortedObject = obs.sortObjectSchema(this.objectSingle, {sortOrder: 'desc'});
+      sortedObjectKeys = Object.keys(sortedObject);
+
+      test.equal(sortedObjectKeys[0], 'a', 'Descending sort (single): A');
+      test.equal(sortedObjectKeys[1], 'b', 'Descending sort (single): B');
+      test.equal(sortedObjectKeys[2], 'c', 'Descending sort (single): C');
+
+      // Descending sort (multi).
+      sortedObject = obs.sortObjectSchema(this.objectMulti, {sortOrder: 'desc'});
+      sortedObjectKeys = Object.keys(sortedObject.a);
+
+      test.equal(sortedObjectKeys[0], 'aa', 'Descending sort (multi): A');
+      test.equal(sortedObjectKeys[1], 'ab', 'Descending sort (multi): B');
+      test.equal(sortedObjectKeys[2], 'ac', 'Descending sort (multi): C');
 
       test.done();
     }

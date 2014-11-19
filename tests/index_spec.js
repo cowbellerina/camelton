@@ -1,6 +1,7 @@
 'use strict';
 
-var Camelton = require('../index.js');
+var fs = require('fs'),
+    Camelton = require('../index.js');
 
 exports.index = {
   camelton: {
@@ -51,6 +52,36 @@ exports.index = {
       // - Supported values `asc` and `desc`.
       test.deepEqual(cameltonCustomized.options, {sortObjOptions: {sortOrder: 'asc'}, sort: 'asc'},
         'Creates an options object with user specified values.');
+
+      test.done();
+    },
+
+    testRun: function(test) {
+      var source              = 'tests/fixtures/source-1.json',
+          sourceCorrupt       = 'tests/fixtures/source-1-corrupt.json',
+          destination         = 'tests/fixtures/destination-1.json',
+          destinationCorrupt  = 'tests/fixtures/destination-1-corrupt.json';
+
+      test.expect(2);
+
+      // Throws an error if source file is not valid JSON.
+      test.throws(
+        function() {
+          var camelton = new Camelton(sourceCorrupt, destination);
+          camelton.run();
+        },
+        Error,
+        'Throws an error if source file is not valid JSON.'
+      );
+      // Silently fails if destination file is not valid JSON (does not throw).
+      test.doesNotThrow(
+        function() {
+          var camelton = new Camelton(source, destinationCorrupt);
+          camelton.run();
+        },
+        Error,
+        'Silently fails if destination file is not valid JSON (does not throw).'
+      );
 
       test.done();
     }
