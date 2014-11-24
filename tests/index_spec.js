@@ -16,7 +16,10 @@ exports.index = {
       var _this = this,
 
           camelton = new Camelton(this.source, this.destination),
-          cameltonCustomized = new Camelton(this.source, this.destination, {sort: 'asc'});
+          cameltonCustomized = new Camelton(this.source, this.destination, {
+            sort: 'asc',
+            verbose: true
+          });
 
       test.expect(6);
 
@@ -50,13 +53,14 @@ exports.index = {
       );
 
       // Creates an options object with defaults.
-      // - Currently on sort option available. Sort option is added only if
-      //   defined, hence the empty default object.
-      test.deepEqual(camelton.options, {},
+      test.deepEqual(camelton.options, {verbose: false},
         'Creates an options object with defaults.');
-      // Creates an options object with user specified value.
-      // - Supported values `asc` and `desc`.
-      test.deepEqual(cameltonCustomized.options, {sortObjOptions: {sortOrder: 'asc'}, sort: 'asc'},
+      // Creates an options object with user specified values.
+      test.deepEqual(cameltonCustomized.options, {
+            sortObjOptions: {sortOrder: 'asc'},
+            sort: 'asc',
+            verbose: true
+        },
         'Creates an options object with user specified values.');
 
       test.done();

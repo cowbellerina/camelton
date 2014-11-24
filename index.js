@@ -3,6 +3,7 @@
 var fs = require('fs'),
     fse = require('fs-extra'),
     _ = require('underscore'),
+    logSymbols = require('log-symbols'),
     util = require('./lib/util.js'),
     obs = require('./lib/obs.js');
 
@@ -10,7 +11,7 @@ var fs = require('fs'),
  * Initialize Camelton.
  *
  * @param {string} source - source file
- * @param {string|array} destination - destination file or an array of
+ * @param {string|Array} destination - destination file or an array of
  * destination files
  * @param {object} options - options object
  */
@@ -26,7 +27,9 @@ function Camelton(source, destination, options) {
    * @returns {object}
    */
   function parseOptions(options) {
-    var defaultOptions = {};
+    var defaultOptions = {
+      verbose: false
+    };
     options = options || {};
 
     if (options.sort) {
@@ -59,13 +62,12 @@ function Camelton(source, destination, options) {
   /**
    * Process destination file(s).
    *
-   * @param {string|array} destination - destination file or an array of
+   * @param {string|Array} destination - destination file or an array of
    * destination files
-   * @returns {string} an array of resolved destination file paths
+   * @returns {Array} an array of resolved destination file paths
    */
   function processDestination(destination) {
-    var destinations = [],
-        destinationFiles = [];
+    var destinations = [];
 
     if (_.isArray(destination)) {
       destinations = destination;
@@ -82,6 +84,11 @@ function Camelton(source, destination, options) {
   this.options = parseOptions(options);
   this.sourceFile = processSource(source);
   this.destinationFiles = processDestination(destination);
+
+  this.statistics = {
+    modified: [],
+    rejected: []
+  };
 }
 
 /**
@@ -104,8 +111,9 @@ Camelton.prototype.run = function() {
     // Destination file is empty or not valid JSON.
     if (!destinationObject) {
       destinationFileContents = fs.readFileSync(filePath, 'utf8');
-      // Destination file is not empty but is not valid JSON -> discard it.
+      // Destination file is not empty but is not valid JSON -> reject it.
       if (destinationFileContents) {
+        _this.statistics.rejected.push(filePath);
         return false;
       }
       // Destination file is empty.
@@ -122,14 +130,50 @@ Camelton.prototype.run = function() {
 
     // Store schema.
     fse.writeJSONSync(filePath, destinationObject);
+    _this.statistics.modified.push(filePath);
   });
 
   return this;
 };
 
 /**
+ * Adds line(s) for report.
+ *
+ * @param {Array} files - an array of files that were handled by Camelton
+ * @param {string} category - statistics category
+ * @param {string} type - log type: one of `info`, `success`, `warning`, or
+ * `error`.
+ * @returns {string}
+ */
+Camelton.prototype.reportAddLine = function(files, category, type) {
+  var filesCount = files.length,
+      output = [];
+
+  category = category || '';
+  type = type || 'info';
+
+  if (filesCount > 0) {
+    output.push('\n' + logSymbols[type] + ' ' + category + ': ' + filesCount +
+    (filesCount === 1 ? ' file.' : ' files.'));
+
+    if (this.options.verbose) {
+      output.push('\n  ' + files.join('\n'));
+    }
+  }
+
+  return output.join('');
+};
+
+/**
  * Reporter for CLI.
  */
-Camelton.prototype.report = function() {};
+Camelton.prototype.report = function() {
+  var message = [];
+
+  message.push(this.reportAddLine(this.statistics.modified, 'Modified', 'success'));
+  message.push(this.reportAddLine(this.statistics.rejected, 'Rejected', 'warning'));
+
+  console.log(message.join(''));
+};
 
 module.exports = Camelton;

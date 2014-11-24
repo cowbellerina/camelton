@@ -25,5 +25,6 @@ build/Release
 node_modules
 
 # Misc
+.idea
 src
 docs
