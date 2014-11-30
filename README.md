@@ -67,11 +67,15 @@ Values: `"asc"`, `"desc"`
 
 Sort order for destination objects.
 
+#### `--verbose`, `-v`
+
+Verbose output.
+
 ##### `--help`, `-h`
 
 Outputs help and usage information.
 
-##### `--version`, `-v`
+##### `--version`, `-V`
 
 Outputs version, license and copyright information.
 

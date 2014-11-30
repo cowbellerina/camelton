@@ -16,6 +16,8 @@ var fs = require('fs'),
  * @param {object} options - options object
  */
 function Camelton(source, destination, options) {
+  var _this = this;
+
   if (!(this instanceof Camelton)) {
     return new Camelton(source, destination, options);
   }
@@ -81,6 +83,34 @@ function Camelton(source, destination, options) {
     return destinations.map(util.resolveEnsureFile);
   }
 
+  /**
+   * Adds line(s) for report.
+   *
+   * @param {Array} files - an array of files that were handled by Camelton
+   * @param {string} category - statistics category
+   * @param {string} type - log type: one of `info`, `success`, `warning`, or
+   * `error`.
+   * @returns {string}
+   */
+  this.reportAddLine = function(files, category, type) {
+    var filesCount = files.length,
+        output = [];
+
+    category = category || '';
+    type = type || 'info';
+
+    if (filesCount > 0) {
+      output.push('\n' + logSymbols[type] + ' ' + category + ': ' + filesCount +
+      (filesCount === 1 ? ' file.' : ' files.'));
+
+      if (_this.options.verbose) {
+        output.push('\n  ' + files.join('\n'));
+      }
+    }
+
+    return output.join('');
+  };
+
   this.options = parseOptions(options);
   this.sourceFile = processSource(source);
   this.destinationFiles = processDestination(destination);
@@ -134,34 +164,6 @@ Camelton.prototype.run = function() {
   });
 
   return this;
-};
-
-/**
- * Adds line(s) for report.
- *
- * @param {Array} files - an array of files that were handled by Camelton
- * @param {string} category - statistics category
- * @param {string} type - log type: one of `info`, `success`, `warning`, or
- * `error`.
- * @returns {string}
- */
-Camelton.prototype.reportAddLine = function(files, category, type) {
-  var filesCount = files.length,
-      output = [];
-
-  category = category || '';
-  type = type || 'info';
-
-  if (filesCount > 0) {
-    output.push('\n' + logSymbols[type] + ' ' + category + ': ' + filesCount +
-    (filesCount === 1 ? ' file.' : ' files.'));
-
-    if (this.options.verbose) {
-      output.push('\n  ' + files.join('\n'));
-    }
-  }
-
-  return output.join('');
 };
 
 /**

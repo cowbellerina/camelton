@@ -91,6 +91,28 @@ exports.index = {
       );
 
       test.done();
+    },
+
+    testStatistics: function(test) {
+      var camelton;
+
+      test.expect(4);
+
+      camelton = new Camelton(this.source, this.destination);
+      camelton.run();
+      test.strictEqual(camelton.statistics.modified.length, 1,
+          'Statistics: Modified count matches (1).');
+      test.strictEqual(camelton.statistics.rejected.length, 0,
+          'Statistics: Rejected count matches (0).');
+
+      camelton = new Camelton(this.source, this.destinationCorrupt);
+      camelton.run();
+      test.strictEqual(camelton.statistics.modified.length, 0,
+          'Statistics: Modified count matches (0).');
+      test.strictEqual(camelton.statistics.rejected.length, 1,
+          'Statistics: Rejected count matches (1).');
+
+      test.done();
     }
   }
 };
