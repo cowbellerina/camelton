@@ -15,3 +15,13 @@ build:
         code: |
           echo "node version $(node -v) running"
           echo "npm version $(npm -v) running"
+  # Custom script test related to coverage
+  after-steps:
+    - script:
+        name: run coverage script
+        code: |
+          npm run-script coverage
+    - script:
+        name: push coverage to coveralls
+        code: |
+          npm run-script coveralls
