@@ -1,6 +1,16 @@
 Changelog
 =========
 
+## 0.3.0 _(11th Dec 2014)_
+* Reporter for CLI
+* Options
+  * --sort: asc, desc. Source object property used if none defined.
+  * --prune: extra properties found in destination objects may be removed.
+* Custom object schema merge function
+* Code coverage testing
+  * [Coveralls](https://coveralls.io/)
+* More unit tests (90% coverage targeted, 83% reached)
+
 ## 0.2.0 _(17th Nov 2014)_
 * Object schema merge
 * Options

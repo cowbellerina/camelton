@@ -62,8 +62,8 @@ camelton.run();
 
 ##### `--prune`, `-p`
 
-Type: `boolean`
-Default: `false`
+Type: `boolean`  
+Default: `false`  
 Values: `true`, `false`
 
 Prune extra properties found in destination objects.
@@ -88,12 +88,18 @@ Outputs help and usage information.
 
 Outputs version, license and copyright information.
 
-## Test
+## Tests, development and documentation
 
 Running linters and Nodeunit unit test
 
 ```sh
 $ npm test
+```
+
+Running coverage
+
+```sh
+$ npm run-script coverage
 ```
 
 Running JSHint and JSCS linters
@@ -102,15 +108,13 @@ Running JSHint and JSCS linters
 $ grunt lint
 ```
 
-## Roadmap
+Generating JSDoc documentation
 
-### Version 0.3.0
-* Reporter for CLI
-* Options
-  * --sort: Additional [sort-object](https://www.npmjs.org/package/sort-object) options.
-* Code coverage testing
-  * [Coveralls](https://coveralls.io/)
-* More unit tests (90% coverage target)
+```sh
+$ grunt docs
+```
+
+## Roadmap
 
 ### Version 1.0
 * Project published to npm
