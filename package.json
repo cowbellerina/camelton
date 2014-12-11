@@ -1,6 +1,6 @@
 {
   "name": "camelton",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Generate and synchronize data skeletons across files.",
   "main": "index.js",
   "scripts": {
