@@ -53,13 +53,13 @@ exports.index = {
       );
 
       // Creates an options object with defaults.
-      test.deepEqual(camelton.options, {verbose: false},
+      test.deepEqual(camelton.options, {verbose: false, prune: false},
         'Creates an options object with defaults.');
       // Creates an options object with user specified values.
       test.deepEqual(cameltonCustomized.options, {
-            sortObjOptions: {sortOrder: 'asc'},
-            sort: 'asc',
-            verbose: true
+            verbose: true,
+            prune: false,
+            sort: 'asc'
         },
         'Creates an options object with user specified values.');
 

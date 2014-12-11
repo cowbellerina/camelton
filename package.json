@@ -63,7 +63,8 @@
     "coveralls": "git://github.com/cainus/node-coveralls#master",
     "fs-extra": "^0.12.0",
     "log-symbols": "^1.0.1",
-    "sort-object": "^0.3.2",
+    "sort-asc": "^0.1.0",
+    "sort-desc": "^0.1.1",
     "underscore": "^1.7.0"
   }
 }

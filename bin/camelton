@@ -29,7 +29,8 @@ program
   .version(version())
   .usage('<source> <destination> [options]')
 
-  .option('-s, --sort [type]', 'asc or desc [sortOrder]', 'sortOrder')
+  .option('-p, --prune', 'prune extra keys found in destination objects')
+  .option('-s, --sort [type]', 'asc or desc [sort]', 'sort')
   .option('-v, --verbose', 'verbose output');
 
 /**

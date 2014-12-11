@@ -30,17 +30,14 @@ function Camelton(source, destination, options) {
    */
   function parseOptions(options) {
     var defaultOptions = {
-      verbose: false
+      verbose: false,
+      prune: false
     };
     options = options || {};
 
-    if (options.sort) {
-      if (_.isString(options.sort) && ['asc', 'desc'].indexOf(options.sort.toLowerCase()) !== -1) {
-        defaultOptions.sortObjOptions = {
-          sortOrder: options.sort
-        };
-      }
-      // @todo: add other supported sort-object options.
+    // Delete sort option if not valid.
+    if (options.sort && ['asc', 'desc'].indexOf(options.sort.toLowerCase()) === -1) {
+      delete options.sort;
     }
 
     return _.extend(defaultOptions, options);
@@ -85,6 +82,8 @@ function Camelton(source, destination, options) {
 
   /**
    * Adds line(s) for report.
+   *
+   * @protected
    *
    * @param {Array} files - an array of files that were handled by Camelton
    * @param {string} category - statistics category
@@ -151,11 +150,11 @@ Camelton.prototype.run = function() {
     }
 
     // Merge schemas.
-    destinationObject = obs.mergeObjectSchema(destinationObject, sourceObject);
+    destinationObject = obs.mergeObjectSchema(destinationObject, sourceObject, _this.options.prune);
 
     // Sort schema.
-    if (_this.options.sortObjOptions) {
-      destinationObject = obs.sortObjectSchema(destinationObject, _this.options.sortObjOptions);
+    if (_this.options.sort) {
+      destinationObject = obs.sortObjectSchema(destinationObject, _this.options);
     }
 
     // Store schema.

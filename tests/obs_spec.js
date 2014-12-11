@@ -88,9 +88,6 @@ exports.obs = {
         b: 'b',
         c: 'c'
       };
-      this.objectSingle3 = {
-        d: 'd'
-      };
 
       this.objectMulti1 = {
         a: {},
@@ -165,44 +162,104 @@ exports.obs = {
       callback();
     },
     testSortObjectSchema: function(test) {
-      // Objects are first sorted using sortObj, then converted into arrays
-      // using Object.keys. The order of the keys is then checked index by
-      // index. Didn't figure any better way to compare object property order.
+      // Objects are first processed, then converted into arrays using
+      // Object.keys. The order of the keys is then checked index by index.
+      // Haven't figured any better way to compare object property order.
       var sortedObject, sortedObjectKeys;
 
-      test.expect(12);
+      test.expect(27);
+
+      // Unsorted (single).
+      // - source object property order is used.
+      sortedObject = obs.mergeObjectSchema(this.objectSingle, {b: '',  a: '', c: ''});
+      sortedObjectKeys = Object.keys(sortedObject);
+
+      test.equal(sortedObjectKeys[0], 'b', 'Unsorted (single): B');
+      test.equal(sortedObjectKeys[1], 'a', 'Unsorted (single): A');
+      test.equal(sortedObjectKeys[2], 'c', 'Unsorted (single): C');
+
+      // Unsorted (single).
+      // - source object property order is used.
+      // - extra properties are preserved and added to the end of the object in
+      //   their original order.
+      sortedObject = obs.mergeObjectSchema(this.objectSingle, {a: ''});
+      sortedObjectKeys = Object.keys(sortedObject);
+
+      test.equal(sortedObjectKeys[0], 'a',
+          'Unsorted (single): extra properties are preserved: A');
+      test.equal(sortedObjectKeys[1], 'c',
+          'Unsorted (single): extra properties are preserved: C');
+      test.equal(sortedObjectKeys[2], 'b',
+          'Unsorted (single): extra properties are preserved: B');
+
+      // Unsorted (multi).
+      // - source object property order is used.
+      sortedObject = obs.mergeObjectSchema(this.objectMulti, {
+        b: '',
+        a: {ab: '', aa: '', ac: ''},
+        c: ''
+      });
+      sortedObjectKeys = Object.keys(sortedObject.a);
+
+      test.equal(sortedObjectKeys[0], 'ab', 'Unsorted (multi): B');
+      test.equal(sortedObjectKeys[1], 'aa', 'Unsorted (multi): A');
+      test.equal(sortedObjectKeys[2], 'ac', 'Unsorted (multi): C');
+
+      // Unsorted (single, prune).
+      // - source object property order is used.
+      // - extra properties are removed from destination object.
+      sortedObject = obs.mergeObjectSchema(this.objectSingle, {b: '', a: ''}, true);
+      sortedObjectKeys = Object.keys(sortedObject);
+
+      test.equal(sortedObjectKeys.length, 2, 'Unsorted (single, prune)');
+      test.equal(sortedObjectKeys[0], 'b', 'Unsorted (single, prune): B');
+      test.equal(sortedObjectKeys[1], 'a', 'Unsorted (single, prune): A');
+
+      // Unsorted (multi, prune).
+      // - source object property order is used.
+      // - extra properties are removed from destination object.
+      sortedObject = obs.mergeObjectSchema(this.objectMulti, {
+        b: '',
+        a: {ab: '', ac: ''},
+        c: ''
+      }, true);
+      sortedObjectKeys = Object.keys(sortedObject.a);
+
+      test.equal(sortedObjectKeys.length, 2, 'Unsorted (multi, prune)');
+      test.equal(sortedObjectKeys[0], 'ab', 'Unsorted (multi, prune): B');
+      test.equal(sortedObjectKeys[1], 'ac', 'Unsorted (multi, prune): C');
 
       // Ascending sort (single).
-      sortedObject = obs.sortObjectSchema(this.objectSingle, {sortOrder: 'asc'});
+      sortedObject = obs.sortObjectSchema(this.objectSingle, {sort: 'asc'});
       sortedObjectKeys = Object.keys(sortedObject);
 
-      test.equal(sortedObjectKeys[0], 'c', 'Ascending sort (single): C');
+      test.equal(sortedObjectKeys[0], 'a', 'Ascending sort (single): A');
       test.equal(sortedObjectKeys[1], 'b', 'Ascending sort (single): B');
-      test.equal(sortedObjectKeys[2], 'a', 'Ascending sort (single): A');
+      test.equal(sortedObjectKeys[2], 'c', 'Ascending sort (single): C');
 
       // Ascending sort (multi).
-      sortedObject = obs.sortObjectSchema(this.objectMulti, {sortOrder: 'asc'});
+      sortedObject = obs.sortObjectSchema(this.objectMulti, {sort: 'asc'});
       sortedObjectKeys = Object.keys(sortedObject.a);
 
-      test.equal(sortedObjectKeys[0], 'ac', 'Ascending sort (multi): C');
+      test.equal(sortedObjectKeys[0], 'aa', 'Ascending sort (multi): A');
       test.equal(sortedObjectKeys[1], 'ab', 'Ascending sort (multi): B');
-      test.equal(sortedObjectKeys[2], 'aa', 'Ascending sort (multi): A');
+      test.equal(sortedObjectKeys[2], 'ac', 'Ascending sort (multi): C');
 
       // Descending sort (single).
-      sortedObject = obs.sortObjectSchema(this.objectSingle, {sortOrder: 'desc'});
+      sortedObject = obs.sortObjectSchema(this.objectSingle, {sort: 'desc'});
       sortedObjectKeys = Object.keys(sortedObject);
 
-      test.equal(sortedObjectKeys[0], 'a', 'Descending sort (single): A');
+      test.equal(sortedObjectKeys[0], 'c', 'Descending sort (single): C');
       test.equal(sortedObjectKeys[1], 'b', 'Descending sort (single): B');
-      test.equal(sortedObjectKeys[2], 'c', 'Descending sort (single): C');
+      test.equal(sortedObjectKeys[2], 'a', 'Descending sort (single): A');
 
       // Descending sort (multi).
-      sortedObject = obs.sortObjectSchema(this.objectMulti, {sortOrder: 'desc'});
+      sortedObject = obs.sortObjectSchema(this.objectMulti, {sort: 'desc'});
       sortedObjectKeys = Object.keys(sortedObject.a);
 
-      test.equal(sortedObjectKeys[0], 'aa', 'Descending sort (multi): A');
+      test.equal(sortedObjectKeys[0], 'ac', 'Descending sort (multi): C');
       test.equal(sortedObjectKeys[1], 'ab', 'Descending sort (multi): B');
-      test.equal(sortedObjectKeys[2], 'ac', 'Descending sort (multi): C');
+      test.equal(sortedObjectKeys[2], 'aa', 'Descending sort (multi): A');
 
       test.done();
     }

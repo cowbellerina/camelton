@@ -60,6 +60,14 @@ camelton.run();
 
 ### Options
 
+##### `--prune`, `-p`
+
+Type: `boolean`
+Default: `false`
+Values: `true`, `false`
+
+Prune extra properties found in destination objects.
+
 ##### `--sort`, `-s`
 
 Type: `string`  
