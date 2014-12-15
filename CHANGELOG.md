@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 1.0.0 _(15th Dec 2014)_
+* Usage examples
+* Project published to npm
+
 ## 0.3.0 _(11th Dec 2014)_
 * Reporter for CLI
 * Options
@@ -26,5 +30,4 @@ Changelog
 * JSHint, JSCS, and JSDoc linting
 
 ## 0.0.0
-
 * Initial commit

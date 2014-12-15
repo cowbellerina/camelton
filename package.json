@@ -31,10 +31,9 @@
   "keywords": [
     "json",
     "object",
+    "schema",
     "copy",
-    "synchronize",
-    "configuration",
-    "localization"
+    "synchronize"
   ],
   "author": "tuunanen",
   "license": "MIT",

@@ -11,16 +11,19 @@ camelton
 across files. The tool can be used to compare the schema (object keys) of a data
 structure between source and destination files. The schema can be generated and
 synchronized across multiple files. Use cases for `camelton` include generating
-and synchronizing localization files or test data, for example.
+and synchronizing localization files, for example.
 
 At the moment `camelton` only supports JSON formatted data.
 
-Please see
-[roadmap](https://github.com/tuunanen/camelton#roadmap) for feature plan.
-
 ## Installation
 
-Using git
+Node
+
+```sh
+$ npm install camelton
+```
+
+Git
 
 ```sh
 $ git clone git@github.com:tuunanen/camelton.git
@@ -60,14 +63,6 @@ camelton.run();
 
 ### Options
 
-##### `--prune`, `-p`
-
-Type: `boolean`  
-Default: `false`  
-Values: `true`, `false`
-
-Prune extra properties found in destination objects.
-
 ##### `--sort`, `-s`
 
 Type: `string`  
@@ -76,7 +71,19 @@ Values: `"asc"`, `"desc"`
 
 Sort order for destination objects.
 
+##### `--prune`, `-p`
+
+Type: `boolean`  
+Default: `false`  
+Values: `true`, `false`
+
+Prune extra properties found in destination objects.
+
 ##### `--verbose`, `-v`
+
+Type: `boolean`  
+Default: `false`  
+Values: `true`, `false`
 
 Verbose output.
 
@@ -87,6 +94,149 @@ Outputs help and usage information.
 ##### `--version`, `-V`
 
 Outputs version, license and copyright information.
+
+### Usage Examples
+
+#### Default options
+
+In the following example, the keys in `source.json` file are merged with the
+keys found in `destination-1.json` file. The keys are ordered according to the
+source file. Extra keys found in `destination-1.json` are added to the end of
+the JSON object in their original order. Values are not copied.
+
+The contents of `source.json` file.
+
+```js
+{
+  "a": "a",
+  "c": "c",
+  "d": {
+    "db": "db"
+  }
+}
+```
+
+The contents of `destination-1.json` file **before** running `camelton`.
+
+```js
+{
+  "b": "b",
+  "c": "`c",
+  "d": {
+    "da": "da"
+  }
+}
+```
+
+Running `camelton` with default options.
+
+```js
+var Camelton = require('camelton');
+
+var camelton = new Camelton('source.json', 'destination-1.json');
+camelton.run();
+```
+
+The contents of `destination-1.json` file **after** running `camelton`. The
+keys `a` and `db` are added to the JSON object. Existing keys `da` and `b` are
+preserved and added to the end of the objects.
+
+The generated output.
+
+```js
+{
+  "a": "",
+  "c": "`c",
+  "d": {
+    "db": "",
+    "da": "da"
+  },
+  "b": "b"
+}
+```
+
+#### Custom options
+
+##### Sort
+
+The keys in destination objects can be sorted by adding `asc` or `desc` sort
+option. Running `camelton` using the same source and destination files as in
+the previous example generates the following output with sort option on.
+
+Ascending sort order.
+
+```js
+var Camelton = require('camelton');
+
+var camelton = new Camelton('source.json', 'destination-1.json', {sort: 'asc'});
+camelton.run();
+```
+
+The generated output.
+
+```js
+{
+  "a": "",
+  "b": "b",
+  "c": "`c",
+  "d": {
+    "da": "da",
+    "db": ""
+  }
+}
+```
+
+Descending sort order.
+
+```js
+var Camelton = require('camelton');
+
+var camelton = new Camelton('source.json', 'destination-1.json', {sort: 'desc'});
+camelton.run();
+```
+
+The generated output.
+
+```js
+{
+  "d": {
+    "db": "",
+    "da": "da"
+  },
+  "c": "`c",
+  "b": "b",
+  "a": ""
+}
+```
+
+##### Prune
+
+Extra properties found in destination objects can be removed using the `prune`
+option.
+
+```js
+var Camelton = require('camelton');
+
+var camelton = new Camelton('source.json', 'destination-1.json', {prune: true});
+camelton.run();
+```
+
+The generated output. `b` and `da` properties have been removed.
+
+```js
+{
+  "a": "",
+  "c": "`c",
+  "d": {
+    "db": ""
+  }
+}
+```
+
+## Task runners
+
+Check out [grunt-camelton](https://github.com/tuunanen/grunt-camelton) if
+you're using grunt.
 
 ## Tests, development and documentation
 
@@ -113,12 +263,6 @@ Generating JSDoc documentation
 ```sh
 $ grunt docs
 ```
-
-## Roadmap
-
-### Version 1.0
-* Project published to npm
-* Grunt wrapper (separate repository)
 
 ## Changelog
 
