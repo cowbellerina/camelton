@@ -95,11 +95,11 @@ function Camelton(source, destination, options) {
     var filesCount = files.length,
         output = [];
 
-    category = category || '';
-    type = type || 'info';
+    category = category ? ' ' + category : '';
+    type = type && logSymbols[type] ? type : 'info';
 
     if (filesCount > 0) {
-      output.push('\n' + logSymbols[type] + ' ' + category + ': ' + filesCount +
+      output.push('\n' + logSymbols[type] + category + ': ' + filesCount +
       (filesCount === 1 ? ' file.' : ' files.'));
 
       if (_this.options.verbose) {
