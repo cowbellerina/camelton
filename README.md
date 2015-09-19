@@ -79,6 +79,14 @@ Values: `true`, `false`
 
 Prune extra properties found in destination objects.
 
+##### `--placeholder`, `-c`
+
+Type: `boolean`  
+Default: `false`  
+Values: `true`, `false`
+
+Add source object key as a value for empty destination object properties.
+
 ##### `--verbose`, `-v`
 
 Type: `boolean`  
@@ -231,6 +239,62 @@ The generated output. `b` and `da` properties have been removed.
     "db": ""
   }
 }
+```
+
+##### Placeholder
+
+The key of the source object can be added as a placeholder value for empty
+destination objects properties using the `placeholder` option. Non-empty
+properties are never overridden.
+
+The contents of `source.json` file.
+
+```js
+{
+  "aKey": "aValue",
+  "cKey": "cValue",
+  "dKey": {
+    "dbKey": "dbValue"
+  }
+}
+```
+
+The contents of `destination-1.json` file **before** running `camelton`.
+
+```js
+{
+  "bKey": "bValue",
+  "cKey": "`cValue",
+  "dKey": {
+    "daKey": "daValue"
+  }
+}
+```
+
+Running `camelton` with `placeholder` option.
+
+```js
+var Camelton = require('camelton');
+
+var camelton = new Camelton('source.json', 'destination-1.json', {placeholder: true});
+camelton.run();
+```
+
+The generated output. `aKey` and `dbKey` properties have placeholder values of
+`aKey` and `dbKey` while other properties' previously existed values are
+retained.
+
+```js
+{
+  "aKey": "aKey",
+  "cKey": "`cValue",
+  "dKey": {
+    "dbKey": "dbKey",
+    "daKey": "daValue"
+  },
+  "bKey": "bValue"
+}
+
 ```
 
 ## Task runners

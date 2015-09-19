@@ -30,6 +30,7 @@ program
   .usage('<source> <destination> [options]')
 
   .option('-p, --prune', 'prune extra keys found in destination objects')
+  .option('-c, --placeholder', 'add source object key as a placeholder value')
   .option('-s, --sort [type]', 'asc or desc [sort]', 'sort')
   .option('-v, --verbose', 'verbose output');
 
