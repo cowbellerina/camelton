@@ -20,7 +20,7 @@ combination of the words `camel` and (data) skele`ton` -> `camelton`.
 
 #### Camelton in a nutshell
 
-![figure](figures/camelton-figure-nutshell.png "Camelton in a nutshell")
+![figure](https://raw.githubusercontent.com/tuunanen/camelton/master/figures/camelton-figure-nutshell.png "Camelton in a nutshell")
 
 Please see [Usage examples](https://github.com/tuunanen/camelton#usage-examples)
 for more info.
