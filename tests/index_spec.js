@@ -1,6 +1,7 @@
 'use strict';
 
-var Camelton = require('../index.js');
+var fs = require('fs'),
+    Camelton = require('../index.js');
 
 exports.index = {
   camelton: {
@@ -92,6 +93,23 @@ exports.index = {
         Error,
         'Silently fails if destination file is not valid JSON (does not throw).'
       );
+
+      test.done();
+    },
+
+    testJSONFormatting: function(test) {
+      var camelton, output;
+
+      test.expect(1);
+
+      // Writes JSON with default spacing of 2.
+      camelton = new Camelton(this.source, this.destination);
+      camelton.run();
+
+      output = fs.readFileSync(this.destination, 'utf8');
+
+      test.equal(output, '{\n  "foo": ""\n}\n',
+        'Writes JSON with default spacing of 2');
 
       test.done();
     },

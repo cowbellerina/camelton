@@ -60,7 +60,7 @@
   "dependencies": {
     "commander": "^2.3.0",
     "coveralls": "git://github.com/cainus/node-coveralls#master",
-    "fs-extra": "^0.12.0",
+    "fs-extra": "^0.24.0",
     "log-symbols": "^1.0.1",
     "sort-asc": "^0.1.0",
     "sort-desc": "^0.1.1",
