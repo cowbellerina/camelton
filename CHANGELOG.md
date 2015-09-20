@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 1.0.1 _(20th Sep 2015)_
+* Fixed issue with JSON output formatting caused by changes in fs-extra &
+  jsonfile.
+
 ## 1.0.0 _(15th Dec 2014)_
 * Usage examples
 * Project published to npm
