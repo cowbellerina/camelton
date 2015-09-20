@@ -113,10 +113,9 @@ exports.obs = {
     },
     testMergeObjectSchema: function(test) {
       var mergedSchemaSingle = obs.mergeObjectSchema(this.objectSingle1, this.objectSingle2),
-          mergedSchemaMulti = obs.mergeObjectSchema(this.objectMulti1, this.objectMulti2),
-          mergedSchemaPlaceholder = obs.mergeObjectSchema(this.objectSingle1, this.objectSingle2, {placeholder: true});
+          mergedSchemaMulti = obs.mergeObjectSchema(this.objectMulti1, this.objectMulti2);
 
-      test.expect(8);
+      test.expect(7);
 
       test.deepEqual(obs.mergeObjectSchema(this.objectArray), this.objectArray,
         'Non-objects are not processed (Array).');
@@ -135,9 +134,6 @@ exports.obs = {
 
       test.equal(mergedSchemaSingle.c, '',
         'Property value is not copied.');
-
-      test.deepEqual(mergedSchemaPlaceholder, {a: 'a', b: 'b', c: 'c'},
-        'Source object key is added as a placeholder when using `placeholder` option.');
 
       test.deepEqual(mergedSchemaMulti.b, {ba: '', bb: '', bc: {bca: ''}},
         'Multi-dimensional object keys are copied.');
@@ -212,7 +208,7 @@ exports.obs = {
       // Unsorted (single, prune).
       // - source object property order is used.
       // - extra properties are removed from destination object.
-      sortedObject = obs.mergeObjectSchema(this.objectSingle, {b: '', a: ''}, {prune: true});
+      sortedObject = obs.mergeObjectSchema(this.objectSingle, {b: '', a: ''}, true);
       sortedObjectKeys = Object.keys(sortedObject);
 
       test.equal(sortedObjectKeys.length, 2, 'Unsorted (single, prune)');
@@ -226,7 +222,7 @@ exports.obs = {
         b: '',
         a: {ab: '', ac: ''},
         c: ''
-      }, {prune: true});
+      }, true);
       sortedObjectKeys = Object.keys(sortedObject.a);
 
       test.equal(sortedObjectKeys.length, 2, 'Unsorted (multi, prune)');

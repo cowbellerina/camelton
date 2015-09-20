@@ -19,9 +19,7 @@ exports.index = {
           camelton = new Camelton(this.source, this.destination),
           cameltonCustomized = new Camelton(this.source, this.destination, {
             sort: 'asc',
-            verbose: true,
-            prune: true,
-            placeholder: true
+            verbose: true
           });
 
       test.expect(6);
@@ -56,13 +54,12 @@ exports.index = {
       );
 
       // Creates an options object with defaults.
-      test.deepEqual(camelton.options, {verbose: false, prune: false, placeholder: false},
+      test.deepEqual(camelton.options, {verbose: false, prune: false},
         'Creates an options object with defaults.');
       // Creates an options object with user specified values.
       test.deepEqual(cameltonCustomized.options, {
             verbose: true,
-            prune: true,
-            placeholder: true,
+            prune: false,
             sort: 'asc'
         },
         'Creates an options object with user specified values.');

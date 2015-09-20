@@ -14,12 +14,6 @@ var fs = require('fs'),
  * @param {string|Array} destination - destination file or an array of
  * destination files
  * @param {object} options - options object
- * @param {string} options.sort - Sort order for destination objects
- * @param {bool} options.verbose - Verbose output
- * @param {bool} options.prune - Prune extra properties found in destination
- * objects
- * @param {bool} options.placeholder - Add source object key as a value for
- * empty destination object properties
  */
 function Camelton(source, destination, options) {
   var _this = this;
@@ -37,8 +31,7 @@ function Camelton(source, destination, options) {
   function parseOptions(options) {
     var defaultOptions = {
       verbose: false,
-      prune: false,
-      placeholder: false
+      prune: false
     };
     options = options || {};
 
@@ -157,7 +150,7 @@ Camelton.prototype.run = function() {
     }
 
     // Merge schemas.
-    destinationObject = obs.mergeObjectSchema(destinationObject, sourceObject, _this.options);
+    destinationObject = obs.mergeObjectSchema(destinationObject, sourceObject, _this.options.prune);
 
     // Sort schema.
     if (_this.options.sort) {
