@@ -8,12 +8,23 @@ camelton
 
 ## Introduction
 `camelton` is a utility tool for generating and synchronizing data skeletons
-across files. The tool can be used to compare the schema (object keys) of a data
-structure between source and destination files. The schema can be generated and
-synchronized across multiple files. Use cases for `camelton` include generating
-and synchronizing localization files, for example.
+(schemas) across files. The tool can be used to compare the schema (object keys)
+between source and multiple destination data structures. Differences in schema
+are propagated to destination files. Use cases for `camelton` include
+synchronizing localization or configuration files, for example.
 
 At the moment `camelton` only supports JSON formatted data.
+
+Honoring the noble desert beast, the name `camelton` derives from the
+combination of the words `camel` and (data) skele`ton` -> `camelton`.
+
+#### Camelton in a nutshell
+
+![figure](figures/camelton-figure-nutshell.png "Camelton in a nutshell")
+
+Please see [Usage examples](https://github.com/tuunanen/camelton#usage-examples)
+for more info.
+
 
 ## Installation
 
