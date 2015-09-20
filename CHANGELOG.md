@@ -1,6 +1,11 @@
 Changelog
 =========
 
+## 1.1.0 _(20th Sep 2015)_
+* Options
+  * --placeholder: source object key may be added as a placeholder value for
+  empty destination object properties.
+
 ## 1.0.1 _(20th Sep 2015)_
 * Fixed issue with JSON output formatting caused by changes in fs-extra &
   jsonfile.
