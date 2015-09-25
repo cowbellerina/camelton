@@ -1,6 +1,12 @@
 Changelog
 =========
 
+## 1.1.1 _(26th Sep 2015)_
+* [Code coverage](https://coveralls.io/github/tuunanen/camelton?branch=master)
+  increased from 84.13% to 93.65% (finally green)
+* `tmp` directory added to `.gitignore`
+* Dollar signs removed from README shell commands
+
 ## 1.1.0 _(20th Sep 2015)_
 * Options
   * --placeholder: source object key may be added as a placeholder value for
