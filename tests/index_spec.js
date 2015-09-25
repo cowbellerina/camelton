@@ -1,6 +1,7 @@
 'use strict';
 
 var fs = require('fs'),
+    sinon = require('sinon'),
     Camelton = require('../index.js');
 
 exports.index = {
@@ -13,6 +14,7 @@ exports.index = {
 
       callback();
     },
+
     testInitialization: function(test) {
       var _this = this,
 
@@ -177,6 +179,37 @@ exports.index = {
         camelton.reportAddLine(['file.json'], null, null),
         '\n\u001b[34mℹ\u001b[39m: 1 file.\n  file.json',
         'Prints out file names if verbose option is on.');
+
+      test.done();
+    },
+
+    testReport: function(test) {
+      var camelton, spy, pathToDestinationFile;
+
+      test.expect(4);
+
+      pathToDestinationFile = __dirname.concat(this.destination.replace('./tests', ''));
+
+      camelton = new Camelton(this.source, this.destination);
+      spy = sinon.spy(camelton, 'reportAddLine');
+      sinon.spy(console, 'log');
+
+      camelton.run();
+      camelton.report();
+
+      test.ok(spy.calledTwice,
+        'reportAddLine is called once for modified and rejected files.');
+
+      test.ok(spy.calledWith([pathToDestinationFile], 'Modified', 'success'),
+        'reportAddLine is called with a list of modified files.');
+      test.ok(spy.calledWith([], 'Rejected', 'warning'),
+        'reportAddLine is called with a list of rejected files.');
+
+      test.ok(console.log.calledOnce,
+        'Report is output using console.log.');
+
+      camelton.reportAddLine.restore();
+      console.log.restore();
 
       test.done();
     }
