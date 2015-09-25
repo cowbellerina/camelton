@@ -31,15 +31,15 @@ for more info.
 Node
 
 ```sh
-$ npm install camelton
+npm install camelton
 ```
 
 Git
 
 ```sh
-$ git clone git@github.com:tuunanen/camelton.git
-$ cd camelton
-$ npm install
+git clone git@github.com:tuunanen/camelton.git
+cd camelton
+npm install
 ```
 
 ## Usage
@@ -47,13 +47,13 @@ $ npm install
 ### CLI
 
 ```sh
-$ camelton <source> <destination> [options]
+camelton <source> <destination> [options]
 ```
 
 #### Example
 
 ```sh
-$ camelton source.json destination-1.json destination-2.json --sort=desc
+camelton source.json destination-1.json destination-2.json --sort=desc
 ```
 
 ### Node
@@ -318,25 +318,25 @@ you're using grunt.
 Running linters and Nodeunit unit test
 
 ```sh
-$ npm test
+npm test
 ```
 
 Running coverage
 
 ```sh
-$ npm run-script coverage
+npm run-script coverage
 ```
 
 Running JSHint and JSCS linters
 
 ```sh
-$ grunt lint
+grunt lint
 ```
 
 Generating JSDoc documentation
 
 ```sh
-$ grunt docs
+grunt docs
 ```
 
 ## Changelog
