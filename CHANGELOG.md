@@ -1,6 +1,11 @@
 Changelog
 =========
 
+## 1.1.2 _(4th Feb 2017)_
+* Maintenance update, no changes in functionality
+* Update [wercker configuration](wercker.yml)
+* Update npm modules
+
 ## 1.1.1 _(26th Sep 2015)_
 * [Code coverage](https://coveralls.io/github/tuunanen/camelton?branch=master)
   increased from 84.13% to 93.65% (finally green)
