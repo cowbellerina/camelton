@@ -1,11 +1,6 @@
 {
-  "preset": "airbnb",
-
   "validateIndentation": 2,
 
-  "additionalRules": [
-    "node_modules/jscs-jsdoc/lib/rules/*.js"
-  ],
   "jsDoc": {
     "checkParamNames": true,
     "checkRedundantParams": true,

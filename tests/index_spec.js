@@ -1,4 +1,5 @@
 'use strict';
+// jscs: disable jsDoc
 
 var fs = require('fs'),
     sinon = require('sinon'),
@@ -66,8 +67,8 @@ exports.index = {
             prune: true,
             placeholder: true,
             sort: 'asc'
-        },
-        'Creates an options object with user specified values.');
+          },
+          'Creates an options object with user specified values.');
 
       test.done();
     },

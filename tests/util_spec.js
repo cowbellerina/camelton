@@ -1,4 +1,5 @@
 'use strict';
+// jscs: disable jsDoc
 
 var fs = require('fs'),
     util = require('../lib/util.js');
