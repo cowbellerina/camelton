@@ -153,32 +153,32 @@ exports.index = {
       // Provides sensible default values.
       test.equal(
         camelton.reportAddLine(['file.json'], null, null),
-        '\n\u001b[34mℹ\u001b[39m: 1 file.',
+        '\nℹ: 1 file.',
         'Provides sensible default values.');
 
       // Prints a log symbol if provided with supported option.
       test.equal(
         camelton.reportAddLine(['file.json'], null, 'success'),
-        '\n\u001b[32m✔\u001b[39m: 1 file.',
+        '\n✔: 1 file.',
         'Prints a log symbol if provided with supported option.');
 
       // Prints out the name of the category.
       test.equal(
         camelton.reportAddLine(['file.json'], 'category', null),
-        '\n\u001b[34mℹ\u001b[39m category: 1 file.',
+        '\nℹ category: 1 file.',
         'Prints out the name of the category.');
 
       // Pluralizes the word `file` if more than one file.
       test.equal(
         camelton.reportAddLine(['file-1.json', 'file-2.json'], null, null),
-        '\n\u001b[34mℹ\u001b[39m: 2 files.',
+        '\nℹ: 2 files.',
         'Pluralizes the word `file` if more than one file.');
 
       // Prints out file names if verbose option is on.
       camelton = new Camelton(this.source, this.destination, {verbose: true});
       test.equal(
         camelton.reportAddLine(['file.json'], null, null),
-        '\n\u001b[34mℹ\u001b[39m: 1 file.\n  file.json',
+        '\nℹ: 1 file.\n  file.json',
         'Prints out file names if verbose option is on.');
 
       test.done();
