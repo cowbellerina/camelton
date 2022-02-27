@@ -25,7 +25,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/tuunanen/camelton"
+    "url": "https://github.com/cowbellerina/camelton"
   },
   "keywords": [
     "json",
@@ -34,12 +34,12 @@
     "copy",
     "synchronize"
   ],
-  "author": "tuunanen",
+  "author": "cowbellerina",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/tuunanen/camelton/issues"
+    "url": "https://github.com/cowbellerina/camelton/issues"
   },
-  "homepage": "https://github.com/tuunanen/camelton",
+  "homepage": "https://github.com/cowbellerina/camelton",
   "devDependencies": {
     "grunt": "^1.0.1",
     "grunt-cli": "^1.2.0",

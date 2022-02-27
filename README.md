@@ -17,24 +17,18 @@ combination of the words `camel` and (data) skele`ton` -> `camelton`.
 
 #### Camelton in a nutshell
 
-![figure](https://raw.githubusercontent.com/tuunanen/camelton/master/figures/camelton-figure-nutshell.png "Camelton in a nutshell")
+![figure](https://raw.githubusercontent.com/cowbellerina/camelton/master/figures/camelton-figure-nutshell.png "Camelton in a nutshell")
 
-Please see [Usage examples](https://github.com/tuunanen/camelton#usage-examples)
+Please see [Usage examples](https://github.com/cowbellerina/camelton#usage-examples)
 for more info.
 
 
 ## Installation
 
-Node
-
-```sh
-npm install camelton
-```
-
 Git
 
 ```sh
-git clone git@github.com:tuunanen/camelton.git
+git clone git@github.com:cowbellerina/camelton.git
 cd camelton
 npm install
 ```
@@ -305,11 +299,6 @@ retained.
 
 ```
 
-## Task runners
-
-Check out [grunt-camelton](https://github.com/tuunanen/grunt-camelton) if
-you're using grunt.
-
 ## Tests, development and documentation
 
 Running linters and Nodeunit unit test
@@ -338,10 +327,10 @@ grunt docs
 
 ## Changelog
 
-Please see [changelog](https://github.com/tuunanen/camelton/blob/master/CHANGELOG.md).
+Please see [changelog](https://github.com/cowbellerina/camelton/blob/master/CHANGELOG.md).
 
 ## License
 
-Copyright &copy; tuunanen
+Copyright &copy; cowbellerina
 
-Licensed under the [MIT license](https://github.com/tuunanen/camelton/blob/master/LICENSE).
+Licensed under the [MIT license](https://github.com/cowbellerina/camelton/blob/master/LICENSE).
