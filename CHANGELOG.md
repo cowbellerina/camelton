@@ -1,6 +1,11 @@
 Changelog
 =========
 
+## 1.1.3 _(27th Feb 2022)_
+* Maintenance update, no changes in functionality
+* Update GitHub username
+* Update installation instructions, remove Wercker and Coveralls badges
+
 ## 1.1.2 _(4th Feb 2017)_
 * Maintenance update, no changes in functionality
 * Update [wercker configuration](wercker.yml)
