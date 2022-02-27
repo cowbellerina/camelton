@@ -1,9 +1,6 @@
 camelton
 ========
 
-[![wercker status](https://app.wercker.com/status/e8efc33471deb952a82c2d272ffb769d/s "wercker status")](https://app.wercker.com/project/bykey/e8efc33471deb952a82c2d272ffb769d)
-[![Coverage Status](https://coveralls.io/repos/tuunanen/camelton/badge.svg?branch=master&service=github)](https://coveralls.io/github/tuunanen/camelton?branch=master)
-
 > Generate and synchronize data skeletons across files.
 
 ## Introduction

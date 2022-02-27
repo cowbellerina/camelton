@@ -53,12 +53,6 @@ module.exports = function gruntConfiguration(grunt) {
       'tmp'
     ],
 
-    coveralls: {
-      camelton: {
-        src: 'coverage/lcov.info'
-      }
-    },
-
     watch: {
       scripts: {
         files: jsFiles,
@@ -71,7 +65,6 @@ module.exports = function gruntConfiguration(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-nodeunit');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-coveralls');
   grunt.loadNpmTasks('grunt-jsdoc');
   grunt.loadNpmTasks('grunt-jscs');
 
